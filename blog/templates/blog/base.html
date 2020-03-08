@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+
+    <style media="screen" type="text/css">
+      * {
+          font-family: 'Comfortaa', cursive;
+      }
+
+      .return_back {
+          padding-top: 0;
+          padding-bottom: 0;
+          padding-right: 1%;
+      }
+
+      .whites {
+          color: white;
+      }
+
+      #sidebar {
+         background-color: #00263d;
+         border: none;"
+      }
+    </style>
+
+    {% if title %}
+      <title>MSR Blog - {{ title }}</title>
+    {% else %}
+      <title>MSR Blog</title>
+    {% endif %}
+  </head>
+  <body style="background-color: #00263d;">
+    <header class="site-header">
+      <nav class="navbar navbar-expand-lg navbar navbar-dark fixed-top" style="background-color: #001e30;">
+        <a class="return_back" href="javascript: history.back()"><img src="https://i.imgur.com/kZudBZg.png" width="40"></a>
+        <a class="navbar-brand" href="/">ProjectMSR</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="/blog"><img src="https://i.imgur.com/vkDMZtY.png" width="25" alt="Home" title="Home"></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about"><img src="https://i.imgur.com/VuztAFW.png" width="25" alt="About" title="About"></a>
+            </li>
+          </ul> -->
+          <!-- Navbar Right Side -->
+          <div class="loginRegister">
+            <ul class="navbar-nav">
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/blog"><img src="https://i.imgur.com/vkDMZtY.png" width="25" alt="Home" title="Home"></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/blog/about"><img src="https://i.imgur.com/VuztAFW.png" width="25" alt="About" title="About"></a>
+                  </li>
+                </ul>
+              {% if user.is_authenticated %}
+                <li class="nav-item active">
+                  <a class="nav-item nav-link" href="{% url 'post-create' %}"><img src="https://i.imgur.com/rnpdPA2.png" width="25" alt="New Post" title="New Post"></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-item nav-link" href="{% url 'profile' %}"><img src="https://i.imgur.com/lVw3dZQ.png" width="25" alt="Profile" title="Profile"></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-item nav-link" href="{% url 'logout' %}"><img src="https://i.imgur.com/YPbDJxQ.png" width="25" alt="Log Out" title="Log Out"></a>
+                </li>
+            </ul>
+              {% else %}
+                <ul class="navbar-nav">
+                  <li class="nav-item active">
+                    <a class="nav-item nav-link" href="{% url 'login' %}"><img src="https://i.imgur.com/GdVwvpI.png" width="25" alt="Log In" title="Log In"></a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-item nav-link" href="{% url 'register' %}">Sign Up</a>
+                  </li>
+                </ul>
+              {% endif %}
+          </div>
+        </div>
+        </nav>
+    </header>
+
+    <main role="main" class="container">
+     <div class="row">
+       <div class="col-md-8">
+         {% if messages %}
+           {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+              {{ message }}
+            </div>
+           {% endfor %}
+         {% endif %}
+         {% block content %}{% endblock %}
+       </div>
+       <!-- Sidebar Starts Here -->
+       <div class="col-md-4">
+         <div class="content-section" id="sidebar">
+           <h3 class="whites">Our Sidebar</h3>
+           <p class="whites">You can put any information here you'd like.
+             <ul class="list-group">
+               <li class="list-group-item list-group-item-light">Latest Posts</li>
+               <li class="list-group-item list-group-item-light">Announcements</li>
+               <li class="list-group-item list-group-item-light">Calendars</li>
+               <li class="list-group-item list-group-item-light">etc</li>
+             </ul>
+           </p>
+         </div>
+       </div>
+     </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
